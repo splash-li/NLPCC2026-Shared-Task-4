@@ -20,10 +20,10 @@ Performance will be ranked primarily by Sharpe Ratio, alongside cumulative retur
 
 ## Awards & Conference Support
 * NLPCC & CCF-NLP Certification: The top 3 participating teams of each track will be certified by NLPCC and CCF-NLP.
-* Workshop Registration Support: One member from each of the top teams who attends the conference in person will receive support for the workshop registration fee.
+* Workshop Registration Support: One member from each of the top 3 teams of each track who attends the conference in person will receive support for the workshop registration fee.
 
 ## Organizer: 
-Efund Management Co., Ltd., Tsinghua University, Peking University, Wuhan University, The Hong Kong University of Science and Technology (Guangzhou), The Hong Kong Polytechnic University
+E Fund Management Co., Ltd., Tsinghua University, Peking University, Wuhan University, The Hong Kong University of Science and Technology (Guangzhou), The Hong Kong Polytechnic University
 
 Contact: 
 * Shilong Li (lishilong@efunds.com.cn), Jiangpeng Yan (yanjiangpeng@efunds.com.cn)
