@@ -91,6 +91,61 @@
             font-weight: 500;
         }
 
+        .task-overview {
+            background: #f0f4ff;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .task-overview h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .task-overview p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #334155;
+        }
+
+        .awards {
+            background: #fffbeb;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+        }
+
+        .awards h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 12px;
+        }
+
+        .award-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .award-item {
+            font-size: 14px;
+            color: #78350f;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .award-item::before {
+            content: '🏆';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
         .tracks {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -286,6 +341,11 @@
                 <div class="disclaimer-text">⚠️ All data, competition materials, and code related to this task are intended for academic research purposes only and do not constitute any form of investment advice.</div>
             </div>
 
+            <div class="task-overview">
+                <h3>Task Description</h3>
+                <p>This task evaluates the ability of LLM-based Investment Advisor Agents to perform complex reasoning and quantitative decision-making in the Chinese capital market. Participants develop agents that interpret daily macroeconomic signals, financial news, and historical price data to generate daily asset allocation strategies. All submissions are evaluated in a standardized backtesting environment with transaction cost simulation.</p>
+            </div>
+
             <div class="tracks">
                 <div class="track">
                     <h3>Track 1: Macro-Asset Allocation</h3>
@@ -305,6 +365,14 @@
                     <span class="metric">Primary: Sharpe Ratio</span>
                     <span class="metric">Cumulative Returns</span>
                     <span class="metric">Maximum Drawdown</span>
+                </div>
+            </div>
+
+            <div class="awards">
+                <h3>🏆 Awards & Recognition</h3>
+                <div class="award-list">
+                    <div class="award-item">NLPCC & CCF-NLP Certification: Top 1 team of each track receives official certification</div>
+                    <div class="award-item">Workshop Registration Support: One member from each top-3 team (per track) gets registration fee waiver</div>
                 </div>
             </div>
 
