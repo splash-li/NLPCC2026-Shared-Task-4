@@ -318,12 +318,64 @@
         @media (max-width: 950px) {
             .poster {
                 width: 100%;
+                min-height: auto;
+            }
+            .header {
+                padding: 30px 20px;
+            }
+            .title {
+                font-size: 24px;
+            }
+            .content {
+                padding: 25px 20px;
             }
             .tracks {
                 grid-template-columns: 1fr;
             }
             .links {
                 grid-template-columns: 1fr;
+            }
+            .metrics {
+                flex-direction: column;
+            }
+            .metric {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+            }
+            .poster {
+                border-radius: 0;
+            }
+            .header {
+                padding: 25px 15px;
+            }
+            .conference {
+                font-size: 16px;
+            }
+            .title {
+                font-size: 20px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .task-overview {
+                padding: 18px;
+            }
+            .task-overview h3 {
+                font-size: 16px;
+            }
+            .track {
+                padding: 20px 18px;
+            }
+            .track h3 {
+                font-size: 16px;
+            }
+            .organizer-list {
+                font-size: 14px;
             }
         }
     </style>
