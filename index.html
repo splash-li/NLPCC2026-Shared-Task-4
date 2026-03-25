@@ -253,28 +253,44 @@
         }
 
         .organizers {
-            text-align: center;
             margin-bottom: 25px;
+            text-align: center;
         }
 
-        .logo-wrapper {
-            margin-bottom: 18px;
-        }
-
-        .logo {
-            max-width: 240px;
-            height: auto;
-        }
-
-        .organizer-list {
-            font-size: 15px;
-            color: #4a5568;
-            line-height: 1.7;
-        }
-
-        .lead-org {
-            font-weight: 600;
+        .organizers h3 {
+            font-size: 16px;
+            font-weight: 700;
             color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .organizer-logos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .organizer-logo-item {
+            text-align: center;
+            padding: 10px 8px;
+        }
+
+        .organizer-logo {
+            max-width: 130px;
+            max-height: 60px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .organizer-name {
+            font-size: 12px;
+            color: #4a5568;
+            font-weight: 500;
+            line-height: 1.2;
         }
 
         .contact {
@@ -374,8 +390,13 @@
             .track h3 {
                 font-size: 16px;
             }
-            .organizer-list {
-                font-size: 14px;
+            .organizer-logos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .organizer-logo {
+                max-width: 100px;
+                max-height: 50px;
             }
         }
     </style>
@@ -438,14 +459,32 @@
             </div>
 
             <div class="organizers">
-                <div class="logo-wrapper">
-                    <img src="E_Fund_Management_Logo.png" alt="E Fund Management Co., Ltd." class="logo">
-                </div>
-                <div class="organizer-list">
-                    <span class="lead-org">E Fund Management Co., Ltd.</span><br>
-                    Tsinghua University, Peking University, Wuhan University<br>
-                    The Hong Kong University of Science and Technology (Guangzhou)<br>
-                    The Hong Kong Polytechnic University
+                <h3>Organizers</h3>
+                <div class="organizer-logos">
+                    <div class="organizer-logo-item">
+                        <img src="images/E_Fund_Management_Logo.png" alt="E Fund Management Co., Ltd." class="organizer-logo">
+                        <div class="organizer-name">E Fund Management</div>
+                    </div>
+                    <div class="organizer-logo-item">
+                        <img src="images/tsinghua-university-logo.png" alt="Tsinghua University" class="organizer-logo">
+                        <div class="organizer-name">Tsinghua University</div>
+                    </div>
+                    <div class="organizer-logo-item">
+                        <img src="images/peking-university-logo.png" alt="Peking University" class="organizer-logo">
+                        <div class="organizer-name">Peking University</div>
+                    </div>
+                    <div class="organizer-logo-item">
+                        <img src="images/WUHAN-UNIVERSITY-Logo.png" alt="Wuhan University" class="organizer-logo">
+                        <div class="organizer-name">Wuhan University</div>
+                    </div>
+                    <div class="organizer-logo-item">
+                        <img src="images/hong-kong-university-of-science-and-technology-logo.png" alt="The Hong Kong University of Science and Technology (Guangzhou)" class="organizer-logo">
+                        <div class="organizer-name">HKUST (Guangzhou)</div>
+                    </div>
+                    <div class="organizer-logo-item">
+                        <img src="images/hong-kong-polytechnic-university-logo.png" alt="The Hong Kong Polytechnic University" class="organizer-logo">
+                        <div class="organizer-name">Hong Kong PolyU</div>
+                    </div>
                 </div>
             </div>
 
