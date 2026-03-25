@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLPCC 2026 Shared Task 4 | LLM-based Investment Advisor Agents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .poster {
+            background: #ffffff;
+            width: 900px;
+            min-height: 600px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 45px 50px;
+            text-align: center;
+        }
+
+        .conference {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            opacity: 0.9;
+            margin-bottom: 18px;
+        }
+
+        .task-id {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content {
+            padding: 40px 50px;
+        }
+
+        .disclaimer {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 16px 20px;
+            margin-bottom: 35px;
+            border-radius: 4px;
+        }
+
+        .disclaimer-text {
+            color: #991b1b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tracks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+
+        .track {
+            background: #f8fafc;
+            padding: 28px 24px;
+            border-radius: 10px;
+            border-top: 4px solid #3182ce;
+        }
+
+        .track h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        .track p {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .etf-count {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #3182ce;
+            font-weight: 600;
+        }
+
+        .evaluation {
+            background: #f0fdf4;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 35px;
+        }
+
+        .evaluation h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 12px;
+        }
+
+        .metrics {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            background: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-github {
+            background: #24292e;
+            color: white;
+        }
+
+        .btn-github:hover {
+            background: #0f1419;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(36, 41, 46, 0.4);
+        }
+
+        .btn-official {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-official:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .organizers {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-wrapper {
+            margin-bottom: 18px;
+        }
+
+        .logo {
+            max-width: 240px;
+            height: auto;
+        }
+
+        .organizer-list {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .lead-org {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .contact {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .contact h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .contact-emails {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .contact-emails a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .contact-emails a:hover {
+            text-decoration: underline;
+        }
+
+        .final-disclaimer {
+            background: #fef2f2;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: #991b1b;
+            font-weight: 500;
+        }
+
+        @media (max-width: 950px) {
+            .poster {
+                width: 100%;
+            }
+            .tracks {
+                grid-template-columns: 1fr;
+            }
+            .links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="header">
+            <div class="conference">NLPCC 2026</div>
+            <div class="task-id">Shared Task 4</div>
+            <h1 class="title">LLM-based Investment Advisor Agents<br>for Asset Allocation in the Chinese Market</h1>
+        </div>
+
+        <div class="content">
+            <div class="disclaimer">
+                <div class="disclaimer-text">⚠️ All data, competition materials, and code related to this task are intended for academic research purposes only and do not constitute any form of investment advice.</div>
+            </div>
+
+            <div class="tracks">
+                <div class="track">
+                    <h3>Track 1: Macro-Asset Allocation</h3>
+                    <p>Evaluate macro-inference capabilities by rebalancing across major asset classes to navigate economic cycles.</p>
+                    <div class="etf-count">~11 macro-category ETFs</div>
+                </div>
+                <div class="track">
+                    <h3>Track 2: Sector-Rotation Allocation</h3>
+                    <p>Focus on sensitivity to industrial policies and trends, requiring tactical adjustments across industries.</p>
+                    <div class="etf-count">~14 industry-themed ETFs</div>
+                </div>
+            </div>
+
+            <div class="evaluation">
+                <h3>📊 Evaluation Metrics</h3>
+                <div class="metrics">
+                    <span class="metric">Primary: Sharpe Ratio</span>
+                    <span class="metric">Cumulative Returns</span>
+                    <span class="metric">Maximum Drawdown</span>
+                </div>
+            </div>
+
+            <div class="links">
+                <a href="https://github.com/splash-li/NLPCC2026-Shared-Task-4/" target="_blank" class="btn btn-github">
+                    <span>📦</span> GitHub Repository
+                </a>
+                <a href="http://tcci.ccf.org.cn/conference/2026/shared-tasks/" target="_blank" class="btn btn-official">
+                    <span>🌐</span> Official NLPCC Website
+                </a>
+            </div>
+
+            <div class="organizers">
+                <div class="logo-wrapper">
+                    <img src="E_Fund_Management_Logo.png" alt="E Fund Management Co., Ltd." class="logo">
+                </div>
+                <div class="organizer-list">
+                    <span class="lead-org">E Fund Management Co., Ltd.</span><br>
+                    Tsinghua University, Peking University, Wuhan University<br>
+                    The Hong Kong University of Science and Technology (Guangzhou)<br>
+                    The Hong Kong Polytechnic University
+                </div>
+            </div>
+
+            <div class="contact">
+                <h4>Contact</h4>
+                <div class="contact-emails">
+                    Shilong Li: <a href="mailto:lishilong@efunds.com.cn">lishilong@efunds.com.cn</a><br>
+                    Jiangpeng Yan: <a href="mailto:yanjiangpeng@efunds.com.cn">yanjiangpeng@efunds.com.cn</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-disclaimer">
+            Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice.
+        </div>
+    </div>
+</body>
+</html>
