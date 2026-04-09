@@ -1,4 +1,7 @@
 # NLPCC2026-Shared-Task-4: LLM-based Investment Advisor Agents for Asset Allocation in the Chinese Market
+
+[中文](README-CN.md)
+
 > ⚠️ **IMPORTANT DISCLAIMER**
 > 
 > **All data, competition materials, and code related to this task are intended for academic research purposes only and do not constitute any form of investment advice.**
@@ -14,19 +17,13 @@ Performance will be ranked primarily by Sharpe Ratio, alongside cumulative retur
 
 ## Timeline and Data Release
 * Task Schedule: Please refer to http://tcci.ccf.org.cn/conference/2026/ for the official conference timeline.
-* Task Details: Detailed task specifications are **currently being finalized** and will be released shortly.
-* Dataset & Guidelines: The public dataset, starter kit, and usage instructions will be officially released when the competition begins.
-* Starter Kit (CN): See [NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md).
-* Starter Kit (EN): See [NLPCC_tasks/README.md](NLPCC_tasks/README.md).
-* Dataset & DataLoader Notes: See [NLPCC_tasks/dataset/README.md](NLPCC_tasks/dataset/README.md).
-* Competition Website: See [index.html](index.html).
+* Task Details: Detailed task specifications and starter materials are listed in the `Materials` section below.
+* Public Data Release: The public price and news dataset will be released when the competition officially begins.
 
 ## Materials
-* Public dataset release: The public price and news data will be released at the official start of the competition.
-* Starter kit release: The official starter kit and runnable competition code package will be released together with the public data.
-* Chinese starter guide: [NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md)
-* English starter guide: [NLPCC_tasks/README.md](NLPCC_tasks/README.md)
-* Dataset and DataLoader guide: [NLPCC_tasks/dataset/README.md](NLPCC_tasks/dataset/README.md)
+* Starter kit guide in Chinese: [NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md)
+* Starter kit guide in English: [NLPCC_tasks/README.md](NLPCC_tasks/README.md)
+* Dataset and DataLoader notes: **to be released together with the public dataset when the competition begins.**
 
 
 ## Awards & Conference Support
