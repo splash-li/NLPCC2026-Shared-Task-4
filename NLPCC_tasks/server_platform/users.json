@@ -1,0 +1,18 @@
+{
+  "advanced_agent": {
+    "password": "$2b$12$BVOxEUHwbWnmwY2niOa5KutiQSIk1WYcaGIKImLKWyJMWDfBIaj.G",
+    "created_at": "2025-01-01"
+  },
+  "risky_agent": {
+    "password": "$2b$12$NB4sRNhK/sldl5tKaw/fw.541kt.4a3M8ESAaYLleLFJzyY7LAEY6",
+    "created_at": "2025-01-01"
+  },
+  "conserved_agent": {
+    "password": "$2b$12$JjaUI030JeXO.JbYvGttBu8uZnPw0P6GaEqwSaGK88oWm57Aze1wC",
+    "created_at": "2025-01-01"
+  },
+  "silly_agent": {
+    "password": "$2b$12$iCApNzsQhiT8t3e6SWHfoulC/M4IHXckQwJvfIWszhFtNeFSlc2zu",
+    "created_at": "2025-01-01"
+  }
+}

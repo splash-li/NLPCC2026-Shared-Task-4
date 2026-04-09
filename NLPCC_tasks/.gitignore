@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+logs/
+*.log
+
+agent_platform/demo_outputs/
+agent_platform/session_model_mapping.json
+agent_platform/news_summary_cache.json
+agent_platform/batch_session_mapping.json
+
+server_platform/exp_logs/
+server_platform/backtest_results*/
+
+.DS_Store

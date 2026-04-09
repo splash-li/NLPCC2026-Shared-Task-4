@@ -1,0 +1,17 @@
+fastapi==0.120.0
+uvicorn==0.38.0
+loguru==0.7.3
+numpy==2.3.4
+pandas==2.3.3
+scipy==1.16.1
+langchain==0.3.21
+langchain-core==0.3.83
+langchain_openai==0.3.35
+pydantic==2.12.3
+passlib==1.7.4
+python-jose==3.5.0
+requests==2.32.5
+python-multipart==0.0.20
+openai==1.109.1
+python-dotenv==1.0.1
+bcrypt==4.0.1
