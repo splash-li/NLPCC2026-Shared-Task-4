@@ -16,7 +16,7 @@ The competition consists of two tracks:
 Performance will be ranked primarily by Sharpe Ratio, alongside cumulative returns and maximum drawdown, to measure risk-adjusted performance in the backtesting scenario. Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice.
 
 ## Timeline and Data Release
-* Task Schedule: Please refer to http://tcci.ccf.org.cn/conference/2026/ for the official conference timeline.
+* Task Schedule: Please refer to [http://tcci.ccf.org.cn/conference/2026/](http://tcci.ccf.org.cn/conference/2026/shared-tasks/) for the official conference timeline.
 * Task Details: Detailed task specifications and starter materials are listed in the `Materials` section below.
 * Public Data Release: The public price and news dataset will be released when the competition officially begins.
 
