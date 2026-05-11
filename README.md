@@ -18,12 +18,16 @@ Performance will be ranked primarily by Sharpe Ratio, alongside cumulative retur
 ## Timeline and Data Release
 * Task Schedule: Please refer to [http://tcci.ccf.org.cn/conference/2026/](http://tcci.ccf.org.cn/conference/2026/shared-tasks/) for the official conference timeline.
 * Task Details: Detailed task specifications and starter materials are listed in the `Materials` section below.
-* Public Data Release: The public price and news dataset will be released when the competition officially begins.
-
+* ~Public Data Release: The public price and news dataset will be released when the competition officially begins.~
+* Public Data Release: The Dataset, corresponding DataLoader, and Starter Kit are now **officially released**.
 ## Materials
+* **Dataset and DataLoader**: The Dataset, corresponding DataLoader, and Starter Kit are now **officially released**. The datasets are located under the path `NLPCC_tasks/dataset`. We recommend referring to the starter kit for usage guidance.
+  *   The full-year data of 2024 is provided as the training set for Agent development.
+  *   The 2025 dataset has been released and serves as the Phase A leaderboard.
+  *   We will continue collecting 2026 data to construct the non-public Phase B leaderboard subsequently.
 * Starter kit guide in Chinese: [NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md)
 * Starter kit guide in English: [NLPCC_tasks/README.md](NLPCC_tasks/README.md)
-* Dataset and DataLoader notes: **to be released together with the public dataset when the competition begins.**
+
 
 
 ## Awards & Conference Support
