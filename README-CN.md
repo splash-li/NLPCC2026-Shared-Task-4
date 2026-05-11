@@ -23,13 +23,16 @@
 
 * 任务时间安排：请以官方会议页面 http://tcci.ccf.org.cn/conference/2026/ 为准。
 * 任务说明：详细任务说明与 starter materials 请见下方 `Materials` 部分。
-* 公开数据发布时间：公开价格数据与新闻数据将在比赛正式开始时统一发布。
+* ~公开数据发布时间：公开价格数据与新闻数据将在比赛正式开始时统一发布。~
+* 公开数据发布时间：按照官方时间表，**目前已正式开放数据集、配套 DataLoader 及入门 Starter Kit。**
 
 ## Materials
-
+* 数据文件存放路径：`NLPCC_tasks/dataset`，建议参考 Starter Kit 上手使用。
+  * 2024 年全年数据集：已发布，作为训练集，用于Agent的构建；
+  * 2025 年全年数据集：已发布，作为**A 榜公开评测榜单**；
+  * 2026 年数据：我们将持续收集整理，用于构建**不对外公开的 B 榜最终评测榜单**。
 * 中文 starter kit 指引：[NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md)
 * 英文 starter kit 指引：[NLPCC_tasks/README.md](NLPCC_tasks/README.md)
-* 数据与 DataLoader 说明：**将在比赛开始并公开数据时一并发布。**
 
 ## 奖项与参会支持
 
