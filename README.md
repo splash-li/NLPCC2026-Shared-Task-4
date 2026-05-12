@@ -40,4 +40,4 @@ E Fund Management Co., Ltd., Tsinghua University, Peking University, Wuhan Unive
 Contact: 
 * Shilong Li (lishilong@efunds.com.cn), Jiangpeng Yan (yanjiangpeng@efunds.com.cn)
 
-**Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice.**
+**Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice. This dataset is limited to non-commercial academic evaluation and research experiments only. The copyright of all news content is reserved by each original platform. This project shall not be utilized for commercial training, secondary reproduction, or any profit-making activities. Should any copyright objections exist, please contact the project principal for immediate data removal.**
