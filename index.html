@@ -146,6 +146,81 @@
             top: 0;
         }
 
+        .notice {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #0f766e;
+            border-radius: 10px;
+            padding: 22px 24px;
+            margin-bottom: 30px;
+        }
+
+        .notice h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 10px;
+        }
+
+        .notice p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .notice p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq {
+            margin-bottom: 35px;
+        }
+
+        .faq h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 16px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .faq-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .faq-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .faq-item p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .faq-item a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .faq-item a:hover {
+            text-decoration: underline;
+        }
+
         .tracks {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -383,6 +458,9 @@
             .links-secondary {
                 grid-template-columns: 1fr;
             }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
             .metrics {
                 flex-direction: column;
             }
@@ -481,6 +559,12 @@
                 </div>
             </div>
 
+            <div class="notice">
+                <h3>System Reports & Shared Task Paper</h3>
+                <p>After the final evaluation, system reports will follow the publication requirements of the conference. The tentative format is the NLPCC paper template, with no more than two pages per team.</p>
+                <p>We currently expect the final shared task paper to cover the top three teams in each track, together with selected reports that are creative or especially informative. Inclusion is voluntary for each team and subject to the final conference publication arrangement.</p>
+            </div>
+
             <div class="links">
                 <a href="http://tcci.ccf.org.cn/conference/2026/shared-tasks/#participate" target="_blank" class="btn btn-participate">
                     <span>📝</span> How to Participate
@@ -497,6 +581,36 @@
                 <a href="http://tcci.ccf.org.cn/conference/2026/shared-tasks/" target="_blank" class="btn btn-official">
                     <span>🌐</span> Official NLPCC Website
                 </a>
+            </div>
+
+            <div class="faq" id="faq">
+                <h3>FAQ & Submission Notes</h3>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>Registration</h4>
+                        <p>Formal registration is required for Task 4. Please download the <a href="http://tcci.ccf.org.cn/conference/2026/shared-tasks/RegistrationForm-Task4.doc" target="_blank">registration form</a>, complete it, and send it to the task contact email. The registration deadline is May 25, 2026.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Participant Group</h4>
+                        <p>An official WeChat group is available for registered teams. After receiving the completed registration form, the organizing committee will invite the team to join the group.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>A-list and B-list Evaluation</h4>
+                        <p>The shared task schedule follows the official NLPCC dates page. Because Task 4 uses both A-list and B-list evaluations and agent execution may take a long time, we have released the complete A-list data for 20250101-20251231. The B-list test data is kept private; organizers will run submitted agents on the secret B-list data for the final official ranking.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Submission Window</h4>
+                        <p>All teams should submit A-list results and full code between June 11 and June 20, 2026. Models, extra datasets, and knowledge bases used by the system must be limited to resources available before 2026.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Final Materials</h4>
+                        <p>The final evaluation submission should include full code, a runnable agent, A-list prediction files, and intermediate logs. Detailed packaging instructions will be announced through the repository and participant group.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Conference and OpenReview Paper Deadline</h4>
+                        <p>The paper deadline around May 26, 2026 shown on the conference page or OpenReview is not the shared task deadline. Shared task system report and paper arrangements will come later, so participants do not need to follow that deadline for Task 4 materials.</p>
+                    </div>
+                </div>
             </div>
 
             <div class="organizers">
