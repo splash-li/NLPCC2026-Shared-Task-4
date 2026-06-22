@@ -79,7 +79,7 @@ class NewsProcessingAgent:
         self.llm = ChatOpenAI(
             base_url=os.getenv("OPENAI_API_BASE"),
             api_key=os.getenv("OPENAI_API_KEY"),
-            model="EFundGPT-pro",  # default to light-model
+            model=os.getenv("NEWS_MODEL", "qwen-plus"),
             temperature=0.1,
         )
         load_global_cache()  # avoid duplicate requests to save tokens
@@ -87,6 +87,14 @@ class NewsProcessingAgent:
     async def extract_news_summary(self, news_item: Dict) -> Dict:
         """提取单条新闻摘要"""
         global SAVE_COUNTER
+
+        if os.getenv("FAST_NEWS_SUMMARY", "").lower() in {"1", "true", "yes"}:
+            title = news_item.get("TITLE", "") or ""
+            content = news_item.get("CONTENT", "") or ""
+            summary = title if title else content[:120]
+            if content and content != title:
+                summary = f"{summary}；{content[:120]}"
+            return self._format_result(news_item, summary[:300])
 
         # Generate cache key: THEDATE+TITLE+APP_TYPE+RANKING
         cache_key = f"{news_item.get('THEDATE', 'N/A')}_{news_item.get('TITLE', 'N/A')}_{news_item.get('APP_TYPE', 'N/A')}_{news_item.get('RANKING', 'N/A')}"
@@ -380,6 +388,114 @@ class TradingStrategyAgent:
         self.prompt_template = prompt_template
         logger.info(f"decision_model is {model_name}")
 
+    def _calculate_flow_features(self, historical_prices: Dict, fund_pool: List[str]) -> str:
+        rows = []
+        raw_features = {}
+
+        for fund in fund_pool:
+            prices = [
+                item
+                for item in historical_prices.get(fund, [])
+                if item.get("close") is not None
+            ]
+            if len(prices) < 3:
+                continue
+
+            recent = prices[-5:]
+            baseline = prices[-20:] if len(prices) >= 20 else prices
+            first_close = recent[0].get("close")
+            last_close = recent[-1].get("close")
+            if not first_close or not last_close:
+                continue
+
+            ret_5d = (last_close / first_close - 1) * 100
+            pct_changes = [
+                float(item.get("pct_change"))
+                for item in recent
+                if item.get("pct_change") is not None
+            ]
+            up_days = sum(1 for value in pct_changes if value > 0)
+            down_days = sum(1 for value in pct_changes if value < 0)
+
+            recent_turnover = [
+                float(item.get("amount") or item.get("volume") or 0)
+                for item in recent
+            ]
+            baseline_turnover = [
+                float(item.get("amount") or item.get("volume") or 0)
+                for item in baseline
+            ]
+            recent_avg_turnover = (
+                sum(recent_turnover) / len(recent_turnover) if recent_turnover else 0
+            )
+            baseline_avg_turnover = (
+                sum(baseline_turnover) / len(baseline_turnover)
+                if baseline_turnover
+                else 0
+            )
+            turnover_ratio = (
+                recent_avg_turnover / baseline_avg_turnover
+                if baseline_avg_turnover > 0
+                else 1.0
+            )
+
+            up_flow_days = 0
+            down_flow_days = 0
+            for item in recent:
+                pct_change = item.get("pct_change")
+                turnover = float(item.get("amount") or item.get("volume") or 0)
+                if pct_change is None or baseline_avg_turnover <= 0:
+                    continue
+                if pct_change > 0 and turnover > baseline_avg_turnover:
+                    up_flow_days += 1
+                if pct_change < 0 and turnover > baseline_avg_turnover:
+                    down_flow_days += 1
+
+            volatility = 0.0
+            if len(pct_changes) >= 2:
+                mean_return = sum(pct_changes) / len(pct_changes)
+                variance = sum((value - mean_return) ** 2 for value in pct_changes) / len(pct_changes)
+                volatility = variance ** 0.5
+
+            flow_score = ret_5d + (turnover_ratio - 1) * 5 + up_flow_days * 1.5 - down_flow_days * 2 - volatility * 0.5
+            raw_features[fund] = {
+                "ret_5d": ret_5d,
+                "turnover_ratio": turnover_ratio,
+                "up_days": up_days,
+                "down_days": down_days,
+                "up_flow_days": up_flow_days,
+                "down_flow_days": down_flow_days,
+                "volatility": volatility,
+                "flow_score": flow_score,
+            }
+
+        if not raw_features:
+            return "  (无足够成交量/成交额数据)"
+
+        ranked = sorted(
+            raw_features.items(), key=lambda item: item[1]["flow_score"], reverse=True
+        )
+        score_values = [features["flow_score"] for _, features in ranked]
+        median_score = sorted(score_values)[len(score_values) // 2]
+
+        for rank, (fund, features) in enumerate(ranked, start=1):
+            if features["flow_score"] >= median_score + 2:
+                signal = "positive"
+            elif features["flow_score"] <= median_score - 2:
+                signal = "negative"
+            else:
+                signal = "neutral"
+            rows.append(
+                f"- {rank}. {fund} ({FUND_INFO.get(fund, {}).get('name', 'Unknown')}): "
+                f"flow_signal={signal}, ret_5d={features['ret_5d']:.2f}%, "
+                f"turnover_ratio={features['turnover_ratio']:.2f}, "
+                f"up_days={features['up_days']}, down_days={features['down_days']}, "
+                f"up_flow_days={features['up_flow_days']}, down_flow_days={features['down_flow_days']}, "
+                f"vol_5d={features['volatility']:.2f}, flow_score={features['flow_score']:.2f}"
+            )
+
+        return "\n".join(rows)
+
     async def make_trading_decision(
         self,
         date_to_decision: str,
@@ -430,6 +546,8 @@ class TradingStrategyAgent:
                     history_text += f"  {price['date']}: 开{price.get('open', 'N/A')} 收{close_price} 涨跌{pct_change}\n"
                 history_text += "\n"
 
+        flow_text = self._calculate_flow_features(historical_prices, fund_pool)
+
         history_trading = ""
         if platform_trading_history:
             # Group trades by date
@@ -473,6 +591,7 @@ class TradingStrategyAgent:
                 ensure_ascii=False,
             ),
             history_text=history_text if history_text else "  (无历史价格)",
+            flow_text=flow_text,
         )
 
         try:

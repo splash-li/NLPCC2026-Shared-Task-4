@@ -203,6 +203,8 @@ class DataLoader:
                             "low": _clean_nan_value(row.get("low")),
                             "change": _clean_nan_value(row.get("change")),
                             "pct_change": _clean_nan_value(row.get("pctchange")),
+                            "volume": _clean_nan_value(row.get("volume")),
+                            "amount": _clean_nan_value(row.get("amount")),
                         }
                     )
                 result[fund_id] = records
@@ -232,6 +234,8 @@ class DataLoader:
                         "low": None,
                         "change": None,
                         "pct_change": None,
+                        "volume": None,
+                        "amount": None,
                     }
                 )
 

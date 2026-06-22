@@ -7,10 +7,18 @@ from fastapi.staticfiles import StaticFiles
 from logs import server_logger as logger
 
 # Import routers and logger
-from .api import agents, backtest, funds, live, reporting
+from .api import agents, backtest, funds, live
 from .core.backtest import backtest_sessions, load_historical_sessions
 from .core.data_loader import init_data_loader
-from reporting.fund_arena import warm_up_report_cache
+
+try:
+    from .api import reporting
+    from reporting.fund_arena import warm_up_report_cache
+except ModuleNotFoundError:
+    reporting = None
+
+    def warm_up_report_cache():
+        logger.warning("Optional reporting module is unavailable; skipping report cache warm-up.")
 
 # --- FastAPI App Initialization ---
 app = FastAPI(
@@ -71,7 +79,8 @@ app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
 app.include_router(backtest.router, prefix="/api/backtest", tags=["backtest"])
 app.include_router(live.router, prefix="/api/live", tags=["live"])
 app.include_router(funds.router, prefix="/api/funds", tags=["funds"])
-app.include_router(reporting.router, prefix="/api/reports", tags=["reports"])
+if reporting is not None:
+    app.include_router(reporting.router, prefix="/api/reports", tags=["reports"])
 
 
 # --- Root and Health Check Endpoints ---

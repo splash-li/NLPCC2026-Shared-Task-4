@@ -10,6 +10,7 @@ import os
 import sys
 import time
 import traceback
+from datetime import datetime
 from pathlib import Path
 
 from loguru import logger
@@ -18,7 +19,10 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 from agent_platform.agents.advanced_agents import get_advanced_agent
-from agent_platform.agents.trading_strategy_prompt import BASELINE_TRADING_PROMPT
+from agent_platform.agents.trading_strategy_prompt import (
+    BASELINE_TRADING_PROMPT,
+    SECTOR_ROTATION_TRADING_PROMPT,
+)
 from agent_platform.client.platform_client import PlatformClient
 from config import AGENT_PLATFORM
 from server_platform.app.models.backtest import AgentDecision
@@ -62,7 +66,7 @@ def parse_args():
         description="Run one demo backtest for the competition starter kit."
     )
     parser.add_argument("--track", choices=["macro", "sector"], default="sector")
-    parser.add_argument("--model", default="gpt-5")
+    parser.add_argument("--model", default=os.getenv("DECISION_MODEL", "qwen-plus"))
     parser.add_argument("--start-date", default="2025-01-02")
     parser.add_argument("--end-date", default="2025-01-31")
     parser.add_argument("--initial-capital", type=float, default=100000)
@@ -70,6 +74,17 @@ def parse_args():
     parser.add_argument("--top-rank", type=int, default=20)
     parser.add_argument("--pre-k-days", type=int, default=1)
     parser.add_argument("--history-days", type=int, default=5)
+    parser.add_argument(
+        "--rebalance-frequency",
+        choices=["daily", "weekly"],
+        default="weekly",
+        help="How often the agent makes trading decisions.",
+    )
+    parser.add_argument(
+        "--fast-news",
+        action="store_true",
+        help="Use title/content snippets as news summaries instead of per-news LLM calls.",
+    )
     parser.add_argument("--username", default=AGENT_PLATFORM["AGENT_USERNAME"])
     parser.add_argument("--password", default=AGENT_PLATFORM["AGENT_PASSWORD"])
     parser.add_argument("--base-url", default=AGENT_PLATFORM["BASE_URL"])
@@ -109,7 +124,27 @@ def build_output_path(args, session_id):
     return out_dir / f"{args.track}_{args.model}_{session_id}.json"
 
 
+def select_trading_prompt(track):
+    if track == "sector":
+        return SECTOR_ROTATION_TRADING_PROMPT
+    return BASELINE_TRADING_PROMPT
+
+
+def should_rebalance(date_text, last_rebalance_week, frequency):
+    if frequency == "daily":
+        return True, last_rebalance_week
+
+    current_date = datetime.strptime(date_text, "%Y-%m-%d").date()
+    current_week = current_date.isocalendar()[:2]
+    if current_week != last_rebalance_week:
+        return True, current_week
+    return False, last_rebalance_week
+
+
 async def run_demo_backtest(args):
+    if args.fast_news:
+        os.environ["FAST_NEWS_SUMMARY"] = "1"
+
     client = PlatformClient(base_url=args.base_url)
     client.register(args.username, args.password)
     client.login(args.username, args.password)
@@ -117,7 +152,7 @@ async def run_demo_backtest(args):
     config = build_config(args)
     agent = get_advanced_agent(
         agent_id=f"{args.track}_demo_agent",
-        trading_prompt_template=BASELINE_TRADING_PROMPT,
+        trading_prompt_template=select_trading_prompt(args.track),
         decision_model_name=args.model,
     )
 
@@ -133,8 +168,23 @@ async def run_demo_backtest(args):
     )
 
     trading_days = 0
+    last_rebalance_week = None
     while True:
         trading_days += 1
+        should_trade_today, last_rebalance_week = should_rebalance(
+            data["date"], last_rebalance_week, args.rebalance_frequency
+        )
+        if not should_trade_today:
+            logger.info(
+                f"Skipping decision on {data['date']} because "
+                f"rebalance_frequency={args.rebalance_frequency}"
+            )
+            data = client.get_next_day_data(session_id)
+            if data.get("message") == "Backtest finished":
+                break
+            await asyncio.sleep(0.05)
+            continue
+
         portfolio = client.get_backtest_status(session_id)
         historical_prices = client.get_historical_prices(
             session_id, lookback_days=config["lookback_days"]
