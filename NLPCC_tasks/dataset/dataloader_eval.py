@@ -33,6 +33,22 @@ class MockLogger:
 logger = MockLogger()
 
 
+NEWS_SOURCE_ALIASES = {
+    "sinafinance": ["sinafinance", "sina_finance"],
+    "sina_finance": ["sina_finance", "sinafinance"],
+    "tencent": ["tencent", "tencent_stock"],
+    "tencent_stock": ["tencent_stock", "tencent"],
+    "tiantian": ["tiantian", "tiantian_fund"],
+    "tiantian_fund": ["tiantian_fund", "tiantian"],
+}
+
+
+def _get_news_source_candidates(source: str) -> List[str]:
+    source_key = source.lower()
+    candidates = NEWS_SOURCE_ALIASES.get(source_key, [source_key])
+    return list(dict.fromkeys(candidates))
+
+
 def _clean_nan_value(value):
     """Convert NaN, inf, -inf values to None for JSON serialization."""
     if value is None:
@@ -287,15 +303,30 @@ class DataLoader:
         if source_key in self.news_data_cache:
             return self.news_data_cache[source_key]
 
-        pattern = os.path.join(self.news_data_dir, f"{source_key}_daily_dedup.csv")
-        files = glob.glob(pattern)
-        print(files)
-        if not files:
-            filepath = os.path.join(self.news_data_dir, f"{source_key}.csv")
-            if not os.path.exists(filepath):
-                return None
-        else:
-            filepath = files[0]
+        for candidate in _get_news_source_candidates(source_key):
+            if candidate in self.news_data_cache:
+                self.news_data_cache[source_key] = self.news_data_cache[candidate]
+                return self.news_data_cache[source_key]
+
+        filepath = None
+        matched_source = None
+        for candidate in _get_news_source_candidates(source_key):
+            pattern = os.path.join(self.news_data_dir, f"{candidate}_daily_dedup*.csv")
+            files = glob.glob(pattern)
+            if files:
+                filepath = files[0]
+                matched_source = candidate
+                break
+
+            candidate_filepath = os.path.join(self.news_data_dir, f"{candidate}.csv")
+            if os.path.exists(candidate_filepath):
+                filepath = candidate_filepath
+                matched_source = candidate
+                break
+
+        if filepath is None:
+            logger.warning(f"No news data file found for source '{source}'.")
+            return None
 
         try:
             df = pd.read_csv(
@@ -304,7 +335,9 @@ class DataLoader:
             df.replace([np.inf, -np.inf, np.nan], None, inplace=True)
             df["THEDATE"] = df["THEDATE"].dt.date
             self.news_data_cache[source_key] = df
-            logger.debug(f"Cached news data for '{source}'.")
+            if matched_source:
+                self.news_data_cache[matched_source] = self.news_data_cache[source_key]
+            logger.debug(f"Cached news data for '{source}' from '{filepath}'.")
             return df
         except Exception as e:
             logger.error(f"Error loading news data for {source} from {filepath}: {e}")
