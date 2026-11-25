@@ -5,34 +5,51 @@
 > ⚠️ **IMPORTANT DISCLAIMER**
 > 
 > **All data, competition materials, and code related to this task are intended for academic research purposes only and do not constitute any form of investment advice.**
-## Abstract
+## Competition Completed — Final Results
+
+NLPCC 2026 Shared Task 4 has concluded, and the work was presented at the conference. Of 26 registered teams, 14 submitted valid systems: 10 entered macro-asset allocation and 13 entered sector rotation. Teams could enter both tracks.
+
+- **Track 1 winner: AlphaAllocator**, B-board Sharpe ratio **1.11**.
+- **Track 2 winner: FinArbi**, B-board Sharpe ratio **1.97**.
+- [Full final rankings and scores](RESULTS.md) · [Machine-readable results](results.csv) · [Teams and affiliations](PARTICIPANTS.md)
+
+Final rankings use unrounded Sharpe ratios on the hidden 2026 B-board (January 1–June 1). Scores refer to the frozen competition evaluation.
+
+## Papers and Resources
+
+- Competition overview: *Benchmarking LLM-Based Investment Advisor Agents for Asset Allocation in the Chinese ETF Market: Overview of NLPCC 2026 Shared Task 4*. [Final PDF](papers/NLPCC2026-Shared-Task-4-Overview.pdf).
+- [Earlier benchmark preprint: CN-Buzz2Portfolio](https://arxiv.org/abs/2603.22305v1) (archived v1; an update of the same arXiv entry is being prepared).
+- [Task website](https://splash-li.github.io/NLPCC2026-Shared-Task-4/) · [Official conference page](http://tcci.ccf.org.cn/conference/2026/shared-tasks/)
+
+## Task Overview
 This task evaluates the ability of LLM-based Investment Advisor Agents to perform complex reasoning and quantitative decision-making in the Chinese capital market. Moving beyond traditional text analysis, the competition challenges participants to develop agents that interpret daily macroeconomic signals and sectoral shifts to execute daily asset allocation strategies.
-Operating in a backtesting environment, agents are provided with a "Top-20 Financial Hot News" feed and historical price data. Agents must autonomously generate daily rebalancing instructions (target weights) for specific ETF pools. All submissions will be evaluated via a standardized daily-frequency backtesting engine with a 0.01% transaction friction cost. The core challenge lies in filtering news noise and maintaining consistent investment logic without "future-data bias."
+Operating in a backtesting environment, agents are provided with a "Top-20 Financial Hot News" feed and historical price data. Agents must autonomously generate daily rebalancing instructions (target weights) for specific ETF pools. Submissions were evaluated via a standardized daily-frequency backtesting engine with a 0.01% transaction friction cost. The core challenge lies in filtering news noise and maintaining consistent investment logic without "future-data bias."
 The competition consists of two tracks:
 * Track 1: Macro-Asset Allocation: Evaluates macro-inference capabilities by rebalancing approximately 11 macro-category ETFs (e.g., broad indices, treasury bonds, and gold) to navigate economic cycles.
-* Track 2: Sector-Rotation Allocation: Focuses on sensitivity to industrial policies and trends, requiring tactical adjustments across approximately 14 industry-themed ETFs (e.g., New Energy, Semiconductors, and Healthcare).
+* Track 2: Sector-Rotation Allocation: Focuses on sensitivity to industrial policies and trends, requiring tactical adjustments across 16 sector ETFs (e.g., New Energy, Semiconductors, and Healthcare).
 
 
-Performance will be ranked primarily by Sharpe Ratio, alongside cumulative returns and maximum drawdown, to measure risk-adjusted performance in the backtesting scenario. Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice.
+Final performance is ranked by Sharpe Ratio, alongside cumulative returns and maximum drawdown, to measure risk-adjusted performance in the backtesting scenario. Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice.
 
-## Timeline and Data Release
-* Task Schedule: Please refer to [http://tcci.ccf.org.cn/conference/2026/](http://tcci.ccf.org.cn/conference/2026/shared-tasks/) for the official conference timeline.
-* Task Details: Detailed task specifications and starter materials are listed in the `Materials` section below.
-* ~Public Data Release: The public price and news dataset will be released when the competition officially begins.~
-* Public Data Release: The Dataset, corresponding DataLoader, and Starter Kit are now **officially released**.
+## Evaluation and Data
+
+The competition used 2024 for development, the public 2025 A-board for participant-side evaluation, and a hidden 2026 B-board (January 1–June 1) for the organizer-run final ranking. Registration and submissions are closed; historical instructions are archived below.
+
+The final scores refer to the frozen competition data and protocol. News text in the current repository has subsequently been revised; reruns on revised data may differ from the official results.
+
 ## Materials
 * **Dataset and DataLoader**: The Dataset, corresponding DataLoader, and Starter Kit are now **officially released**. The datasets are located under the path `NLPCC_tasks/dataset`. We recommend referring to the starter kit for usage guidance.
   *   The full-year data of 2024 is provided as the training set for Agent development.
   *   The 2025 dataset has been released and serves as the Phase A leaderboard.
-  *   We will continue collecting 2026 data to construct the non-public Phase B leaderboard subsequently.
+  *   The 2026 data was used to construct the non-public Phase B leaderboard subsequently.
 * Starter kit guide in Chinese: [NLPCC_tasks/README-CN.md](NLPCC_tasks/README-CN.md)
 * Starter kit guide in English: [NLPCC_tasks/README.md](NLPCC_tasks/README.md)
 
 
 
-## Awards & Conference Support
-* NLPCC & CCF-NLP Certification: The top 1 participating team of each track will be certified by NLPCC and CCF-NLP.
-* Workshop Registration Support: One member from each of the top 3 teams of each track who attends the conference in person will receive support for the workshop registration fee.
+## Awards & Conference Support (Competition Policy)
+* NLPCC & CCF-NLP Certification: The top 1 participating team of each track were eligible for certification by NLPCC and CCF-NLP.
+* Workshop Registration Support: One member from each of the top 3 teams of each track who attends the conference in person was eligible for support for the workshop registration fee.
 
 ## Organizer: 
 E Fund Management Co., Ltd., Tsinghua University, Peking University, Wuhan University, The Hong Kong University of Science and Technology (Guangzhou), The Hong Kong Polytechnic University
@@ -41,6 +58,9 @@ Contact:
 * Shilong Li (lishilong@efunds.com.cn), Jiangpeng Yan (yanjiangpeng@efunds.com.cn)
 
 **Note: This task and related datasets are intended for academic research only and do not constitute any form of investment advice. This dataset is limited to non-commercial academic evaluation and research experiments only. The copyright of all news content is reserved by each original platform. This project shall not be utilized for commercial training, secondary reproduction, or any profit-making activities. Should any copyright objections exist, please contact the project principal for immediate data removal.**
+
+<details>
+<summary>Archived registration and submission FAQ — competition closed</summary>
 
 ## FAQ
 
@@ -100,3 +120,5 @@ System reports and shared task papers will follow the final publication requirem
 We currently expect the final shared task paper to cover the top three teams in each track, together with selected reports that are creative or especially informative. Inclusion is voluntary for each team and subject to the final conference publication arrangement.
 
 No separate system report deadline has been set yet. Further details will be announced together with the official conference publication process.
+
+</details>
